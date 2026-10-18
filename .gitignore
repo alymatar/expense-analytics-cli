@@ -1,0 +1,15 @@
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+venv/
+
+# Local expense data
+expenses.csv
+
+# Test and coverage artifacts
+.coverage
+htmlcov/
