@@ -1,90 +1,74 @@
 # Expense Analytics CLI
 
-A command-line expense tracker built with Python. This project helps users record expenses, calculate spending totals, analyze expenses by category, and save data locally using CSV files.
+A command-line expense tracker in Python. Record expenses, see the total and per-category spending, filter by category, and keep everything in a local CSV file between runs.
 
-Built as a learning project to strengthen Python programming fundamentals, file handling, and automated testing.
+It uses only the Python standard library and has 11 `unittest` tests.
 
 ## Features
 
-- **Add expenses:** Record expense amounts, categories, descriptions, and dates.
-- **Input validation:** Reject invalid amounts and empty required text fields.
-- **Calculate total spending:** Calculate the total amount of all recorded expenses.
-- **Category analytics:** Calculate spending totals for each category.
-- **Filter expenses:** Find expenses by category, ignoring capitalization and surrounding spaces.
-- **CSV persistence:** Save expenses to a CSV file and load them when the application starts.
-- **Automated tests:** Verify calculations, filtering, and CSV persistence using Python's `unittest` framework.
+- **Add expenses:** amount, category and description, with today's date filled in automatically. You can add several in one go.
+- **Input validation:** amounts must be numbers greater than zero, and text fields can't be empty.
+- **Spending report:** the total of all expenses, plus a total for each category.
+- **Filter by category:** matching ignores capitalisation and surrounding spaces, and the filtered view shows its own total.
+- **CSV persistence:** expenses are saved to `expenses.csv` and loaded again when the app starts. The file is created automatically and is git-ignored.
+- **Tests:** totals (including empty, negative and large values), filtering, and saving/loading the CSV file.
 
-## Technologies
+## Tech stack
 
-- Python
-- CSV file handling
-- `pathlib`
-- `unittest`
-- Git and GitHub
+Python 3 (standard library only): `csv`, `pathlib`, `datetime`, `unittest`.
 
-## Requirements
+## Example
 
-- Python 3.10 or newer recommended
-- Git (optional, for cloning the repository)
-
-No external Python packages are required for the core application.
-
-## Getting Started
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/alymatar/expense-analytics-cli
-cd expense-analytics-cli
+```text
+1. Add an expense
+2. View all expenses
+3. View the spending report
+4. Filter expenses by category
+5. Exit
+please select an option (1-5): 3
+========= EXPENSE REPORT ==========
+Total expenses:  195.50
+Spending by category:
+Food:  150.00
+Transport:  45.50
+===================================
 ```
 
-### 2. Run the application
+## Run locally
+
+Requires Python 3.10 or newer. Nothing to install.
 
 ```bash
+git clone https://github.com/alymatar/expense-analytics-cli.git
+cd expense-analytics-cli
 python main.py
 ```
 
-Follow the command-line menu to use the application.
-
-### 3. Run the tests
+## Run the tests
 
 ```bash
 python -m unittest test_expenses.py
 ```
 
-## Project Structure
+## Project structure
 
 ```text
 expense-analytics-cli/
-├── main.py
-├── test_expenses.py
+├── main.py            # menu, input validation, calculations, CSV load/save
+├── test_expenses.py   # unittest suite (11 tests)
 ├── README.md
-└── .gitignore
+└── .gitignore         # ignores expenses.csv, caches and virtualenvs
 ```
 
-The application creates or uses a local CSV file to store expenses. That file is intended for local data and should not be committed if it contains personal financial information.
+## What I learned
 
-## What I Learned
+- Structuring a program as small, testable functions
+- Validating user input with `try`/`except`
+- Reading and writing CSV files with `csv.DictReader`/`DictWriter` and `pathlib`
+- Writing unit tests, including tests that use temporary files
 
-- Working with Python lists and dictionaries
-- Writing reusable functions
-- Validating user input with `try` and `except`
-- Handling files with `pathlib`
-- Reading and writing CSV data
-- Testing functions with `unittest`
-- Debugging file persistence issues
-- Using Git and GitHub for version control
+## Next steps
 
-## Future Improvements
-
-- Add expenses by date range
-- Export category summaries
-- Support editing and deleting expenses
-- Migrate from CSV storage to SQLite or PostgreSQL
-- Build a REST API using Flask or FastAPI
-
-## Author
-
-Software Engineering | Aspiring Backend Developer
-
-GitHub: https://github.com/alymatar
+- Edit and delete expenses, and filter by date range
+- Move storage from CSV to SQLite or PostgreSQL
+- Expose the same logic as a REST API with FastAPI
